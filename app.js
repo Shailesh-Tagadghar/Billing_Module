@@ -25,7 +25,6 @@ app.get('/', function (req, res) {
     res.render('/index.html')
 });
 
-app
 
 // console.log(`Server is running on ${port}`);
 // console.log(`http://localhost:${port}/`);
