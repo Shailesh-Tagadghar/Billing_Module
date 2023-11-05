@@ -15,6 +15,8 @@ const app = express()
 const port = 3000;
 
 
+
+
 // mongodb+srv://<username>:<password>@cluster0.se5bb8j.mongodb.net/?retryWrites=true&w=majority
 
 //Mongo DB connection
@@ -41,8 +43,15 @@ const students = new mongoose.model("customers", userSchema);
 
 
 
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static(__dirname + '/public'));
+
 
 app.get('/', function (req, res) {
     res.render('pages/index')
