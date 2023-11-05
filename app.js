@@ -3,15 +3,42 @@ const express = require('express')
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const connect = require('connect-mongo')
+// const connect = require('connect-mongo')
 const exceljs = require('exceljs')
-const mongodb = require('mongodb')
+// const mongodb = require('mongodb')
 const pdfkit = require('pdfkit')
 const xlsx = require('xlsx')
 const nodemon = require('nodemon')
+var cors = require('cors');
 
 const app = express()
 const port = 3000;
+
+
+// mongodb+srv://<username>:<password>@cluster0.se5bb8j.mongodb.net/?retryWrites=true&w=majority
+
+//Mongo DB connection
+
+const connect_str = "mongodb+srv://shailesh-billing:admin@cluster0.se5bb8j.mongodb.net/billing?retryWrites=true&w=majority"
+
+app.use(express.json());
+app.use(cors());
+
+mongoose.connect(connect_str, { useNewUrlParser: true , useUnifiedTopology: true})
+	.then( () => console.log("Connected successfully...") )
+	.catch( (err) => console.log(err) );
+
+const userSchema = new mongoose.Schema({
+        Customer_Name: String,
+        Mobile_No: Number,
+        Email: String,
+        Shop_Name: String,
+        Shop_Address: String
+    });
+    
+const students = new mongoose.model("customers", userSchema);
+
+
 
 
 app.set('view engine', 'ejs')
