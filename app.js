@@ -11,12 +11,23 @@ const xlsx = require('xlsx')
 const nodemon = require('nodemon')
 var cors = require('cors');
 const path = require('path');
+const session = require('express-session');
 
 const app = express()
 const port = 3000;
 
 
 
+const halfhour = 12 * 60 * 60 * 1000;
+
+app.use(session({
+    name: 'new_ui',
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: halfhour },
+
+}));
 
 // mongodb+srv://<username>:<password>@cluster0.se5bb8j.mongodb.net/?retryWrites=true&w=majority
 
@@ -24,22 +35,23 @@ const port = 3000;
 
 const connect_str = "mongodb+srv://shailesh-billing:admin@cluster0.se5bb8j.mongodb.net/billing?retryWrites=true&w=majority"
 
+
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(connect_str, { useNewUrlParser: true , useUnifiedTopology: true})
-	.then( () => console.log("Connected successfully...") )
-	.catch( (err) => console.log(err) );
+mongoose.connect(connect_str, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("Connected successfully..."))
+    .catch((err) => console.log(err));
 
-const userSchema = new mongoose.Schema({
-        Customer_Name: String,
-        Mobile_No: Number,
-        Email: String,
-        Shop_Name: String,
-        Shop_Address: String
-    });
-    
-const students = new mongoose.model("customers", userSchema);
+const Customer = mongoose.model('Customer', {
+    name: String,
+    mobileNo: String,
+    email: String,
+    shopName: String,
+    shopAddress: String,
+  });
+
+// const billing = new mongoose.model("customers", userSchema);
 
 
 
@@ -62,9 +74,28 @@ app.get('/', function (req, res) {
     res.render('/index.html')
 });
 
+app.get('/customerForm', (req, res) => {
+    res.render('pages/CustomerForm');
+  });
+
+  app.post('/addCustomer', async (req, res) => {
+    const { name, mobileNo, email, shopName, shopAddress } = req.body;
+  
+    try {
+      // Create a new Customer document and save it to MongoDB
+      const customer = new Customer({ name, mobileNo, email, shopName, shopAddress });
+      await customer.save();
+      res.status(200).send('Customer Details has been saved successfully');
+    } catch (err) {
+      res.status(500).send('Error saving customer data');
+    }
+  });
+  
+
 
 // console.log(`Server is running on ${port}`);
 // console.log(`http://localhost:${port}/`);
 // app.listen(3000)
 
-app.listen(port, ()=> console.log(`Server is running on http://localhost:${port}/`))
+app.listen(port, () => console.log(`Server is running on http://localhost:${port}/`))
+

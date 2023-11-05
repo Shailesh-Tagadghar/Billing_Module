@@ -17,11 +17,21 @@
       <br>
       <button onclick="customerform()">Add Customer</button>
     </div>
+
+    <!-- <div class="cards">
+      <img src="/images/customer.png" alt="Not Found">
+      <br>
+      <button onclick="customerdetails()">Add Customer</button>
+    </div> -->
   </div>
 
   <script>
     function customerform(){
-      alert("inserted")
+      window.location.href = `/customerForm`;
+    }
+
+    function customerdetails(){
+      window.location.href = `/CustomerDetails`;
     }
   </script>
 
