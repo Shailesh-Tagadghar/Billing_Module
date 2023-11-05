@@ -18,11 +18,18 @@
       <button onclick="customerform()">Add Customer</button>
     </div>
 
-    <!-- <div class="cards">
-      <img src="/images/customer.png" alt="Not Found">
+    <div class="cards">
+      <!-- <img src="/images/details.png" alt="Not Found"> -->
+      <img src="/images/detail.jpeg" alt="Not Found">
       <br>
-      <button onclick="customerdetails()">Add Customer</button>
-    </div> -->
+      <button onclick="customerdetails()">Customer Details</button>
+    </div>
+
+    <div class="cards">
+      <img src="/images/bills.jpeg" alt="Not Found">
+      <br>
+      <button onclick="billing()">Billing Details</button>
+    </div>
   </div>
 
   <script>
@@ -32,6 +39,10 @@
 
     function customerdetails(){
       window.location.href = `/CustomerDetails`;
+    }
+
+    function billing(){
+      window.location.href = `/CustomerBills`;
     }
   </script>
 

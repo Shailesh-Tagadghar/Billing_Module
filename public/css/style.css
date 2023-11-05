@@ -4,6 +4,10 @@
   color: red;
 }
 
+.card{
+  display: flex;
+}
+
 .cards{
   margin-left: 100px;
   width: 200px;
@@ -29,4 +33,25 @@
   cursor: pointer;
   border: 1px solid white;
   padding: 10px;
+}
+
+
+
+/* Media query for screens smaller than 768px (typical smartphones) */
+@media (max-width: 768px) {
+  .head {
+    font-size: 30px;
+  }
+
+  .card{
+    display: block;
+    margin-top: 10%;
+    margin-bottom: 20%;
+  }
+
+  .cards {
+    width: 200px;
+    height: 200px;
+    margin-top: 20%;
+  }
 }

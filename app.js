@@ -49,7 +49,7 @@ const Customer = mongoose.model('Customer', {
     email: String,
     shopName: String,
     shopAddress: String,
-  });
+});
 
 // const billing = new mongoose.model("customers", userSchema);
 
@@ -76,21 +76,29 @@ app.get('/', function (req, res) {
 
 app.get('/customerForm', (req, res) => {
     res.render('pages/CustomerForm');
-  });
+});
 
-  app.post('/addCustomer', async (req, res) => {
+app.post('/addCustomer', async (req, res) => {
     const { name, mobileNo, email, shopName, shopAddress } = req.body;
-  
+
     try {
-      // Create a new Customer document and save it to MongoDB
-      const customer = new Customer({ name, mobileNo, email, shopName, shopAddress });
-      await customer.save();
-      res.status(200).send('Customer Details has been saved successfully');
+        // Create a new Customer document and save it to MongoDB
+        const customer = new Customer({ name, mobileNo, email, shopName, shopAddress });
+        await customer.save();
+        res.status(200).send('Customer Details has been saved successfully');
     } catch (err) {
-      res.status(500).send('Error saving customer data');
+        res.status(500).send('Error saving customer data');
     }
-  });
-  
+});
+
+app.get('/CustomerDetails', (req, res) => {
+    res.render('pages/CustomerDetails');
+});
+
+
+app.get('/CustomerBills', (req, res) => {
+    res.render('pages/CustomerBills');
+});
 
 
 // console.log(`Server is running on ${port}`);
