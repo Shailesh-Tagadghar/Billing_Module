@@ -10,6 +10,7 @@ const pdfkit = require('pdfkit')
 const xlsx = require('xlsx')
 const nodemon = require('nodemon')
 var cors = require('cors');
+const path = require('path');
 
 const app = express()
 const port = 3000;
@@ -43,7 +44,7 @@ const students = new mongoose.model("customers", userSchema);
 
 
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 
